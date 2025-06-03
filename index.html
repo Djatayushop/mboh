@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeliastore.id - Daftar Produk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #f0f0f0;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .product-stock {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-stock.low {
+            background: #f39c12;
+        }
+
+        .product-stock.out {
+            background: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧕 Zeliastore.id</h1>
+            <p>Koleksi Hijab Premium untuk Muslimah Modern</p>
+        </div>
+
+        <div id="products-container" class="products-grid">
+            <!-- Produk akan ditampilkan di sini -->
+        </div>
+    </div>
+
+    <script>
+        // Data produk dummy
+        const products = [
+             {
+                id: 1,
+                name: "PARIS PREMIUM HIJAB",
+                description: "BELI 1 GRATIS 1,Berbahan sutra premium dengan kualitas tinggi, nyaman dipakai untuk aktivitas sehari-hari.",
+                price: "Rp 139.999",
+                image: "https://cdn.orderonline.id/uploads/images_2140121737541534931.gif",
+                stock: 50,
+                category: "Fashion"
+            },
+            {
+                id: 2,
+                name: "HIJAB VOAL PRINTING PREMIUM",
+                description: "BELI 1 GRATIS 1-Hijab dengan desain modern dan fungsional, cocok untuk acara atau bekerja.",
+                price: "Rp 139.999",
+                image: "https://cdn.orderonline.id/uploads/images_7612951738408383220.png",
+                stock: 12,
+                ccategory: "Fashion"
+            },
+            {
+                id: 3,
+                name: "INSTAN MALAYA PURITY SERIES",
+                description: "BELI 1 GRATIS 1-Hijab dengan desain casual yang trendy, cocok untuk gaya santai maupun formal.",
+                price: "Rp 139.999",
+                image: "https://cdn.orderonline.id/uploads/images_5700871738252145667.png",
+                stock: 8,
+                category: "Fashion"
+            },
+            {
+                id: 4,
+                name: "HIJAB VOAL WATERSPLASH",
+                description: "BELI 1 GRATIS 1-Hijab berkualitas tinggi dengan bahan yang lembut dan anti air.",
+                price: "Rp 139.999",
+                image: "https://cdn.orderonline.id/uploads/images_3869421744859651113.png",
+                stock: 99,
+                category: "Fashion"
+            }
+        ];
+
+        // Fungsi untuk menentukan class stock
+        function getStockClass(stock) {
+            if (stock === 0) return 'out';
+            if (stock < 10) return 'low';
+            return '';
+        }
+
+        // Fungsi untuk menentukan text stock
+        function getStockText(stock) {
+            if (stock === 0) return 'Habis';
+            if (stock < 10) return `Sisa ${stock}`;
+            return `Stok ${stock}`;
+        }
+
+        // Fungsi untuk render produk
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            
+            const productsHTML = products.map(product => `
+                <div class="product-card" onclick="viewProduct(${product.id})">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price}</div>
+                        <span class="product-stock ${getStockClass(product.stock)}">${getStockText(product.stock)}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = productsHTML;
+        }
+
+        // Fungsi untuk melihat detail produk
+        function viewProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                // Buka URL produk di tab baru
+                window.open(product.url, '_blank');
+            }
+        }
+
+        // Inisialisasi halaman
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+        });
+
+        // Fungsi tambahan untuk filter produk (opsional)
+        function filterProducts(category) {
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+            
+            const container = document.getElementById('products-container');
+            const productsHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="viewProduct(${product.id})">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price}</div>
+                        <span class="product-stock ${getStockClass(product.stock)}">${getStockText(product.stock)}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = productsHTML;
+        }
+    </script>
+</body>
+</html>
