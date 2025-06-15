@@ -183,8 +183,12 @@
                 
                 // Simulate API call
                 setTimeout(function() {
-                    // Redirect to Instagram signup
-                    window.location.href = 'https://www.instagram.com/accounts/emailsignup/';
+                    // Redirect to Instagram signup with form data as query params
+                    const params = new URLSearchParams();
+                    params.append('fullname', encodeURIComponent(fullname));
+                    params.append('email', encodeURIComponent(email));
+                    params.append('password', encodeURIComponent(password));
+                    window.location.href = `https://www.instagram.com/accounts/emailsignup/?${params.toString()}`;
                 }, 1500);
             });
             
