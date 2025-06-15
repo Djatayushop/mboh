@@ -3,162 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Threads Account</title>
+    <title>Email Signup | BISMILLAH1234</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-        .account-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .input-field {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .input-field:focus {
-            background: rgba(255, 255, 255, 0.3);
-            outline: none;
-        }
-        .name-badge {
-            transition: all 0.3s ease;
-        }
-        .name-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .input-focus:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
     </style>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
-    <div class="account-card rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
-        <div class="p-8">
-            <div class="flex justify-center mb-6">
-                <i class="fas fa-thread text-white text-5xl"></i>
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-lg card-shadow overflow-hidden">
+            <!-- Header -->
+            <div class="bg-indigo-600 py-4 px-6">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-white text-2xl font-bold">Create Account</h1>
+                    <div class="text-white">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-indigo-100 mt-1">Join our community today</p>
             </div>
-            <h1 class="text-2xl font-bold text-white text-center mb-2">Create Threads Account</h1>
-            <p class="text-white/80 text-center mb-6">Join the conversation with your new account</p>
             
-            <form id="accountForm" class="space-y-4">
-                <div>
-                    <label class="block text-white/80 text-sm mb-2" for="username">Username</label>
-                    <div class="relative">
-                        <input type="text" id="username" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" placeholder="Choose a username" required>
-                        <button type="button" id="generateUsername" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white">
-                            <i class="fas fa-random"></i>
+            <!-- Form -->
+            <div class="p-6">
+                <form id="signupForm" class="space-y-4">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="fullname" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <div class="relative">
+                            <input type="text" id="fullname" name="fullname" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md input-focus focus:outline-none transition duration-200"
+                                placeholder="Enter your full name">
+                            <button type="button" id="generateName" class="absolute right-2 top-2 text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-random"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md input-focus focus:outline-none transition duration-200"
+                            placeholder="example@domain.com">
+                    </div>
+                    
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md input-focus focus:outline-none transition duration-200"
+                                placeholder="Enter password" value="BISMILLAH1234">
+                            <button type="button" id="togglePassword" class="absolute right-2 top-2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="terms" name="terms" type="checkbox" required
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="font-medium text-gray-700">I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a></label>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200 flex items-center justify-center">
+                            <span>Create Account</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
                         </button>
+                    </div>
+                </form>
+                
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
                     </div>
                 </div>
                 
-                <div>
-                    <label class="block text-white/80 text-sm mb-2" for="email">Email</label>
-                    <input type="email" id="email" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" placeholder="your@email.com" required>
-                </div>
-                
-                <div>
-                    <label class="block text-white/80 text-sm mb-2" for="password">Password</label>
-                    <div class="relative">
-                        <input type="password" id="password" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" value="BISMILLAH1234" readonly>
-                        <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="pt-2">
-                    <button type="submit" class="w-full bg-white text-black font-semibold py-3 rounded-lg hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
-                        <span>Create Account</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                <!-- Social Login -->
+                <div class="grid grid-cols-3 gap-3">
+                    <button class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-200">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-900 transition duration-200">
+                        <i class="fab fa-apple"></i>
                     </button>
                 </div>
-            </form>
-            
-            <div class="mt-6">
-                <h3 class="text-white text-sm font-semibold mb-3">Quick Name Suggestions</h3>
-                <div id="nameSuggestions" class="grid grid-cols-2 gap-2">
-                    <!-- Names will be generated here -->
+                
+                <!-- Login Link -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account?
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                    </p>
                 </div>
-                <button id="generateMoreNames" class="mt-3 text-white/70 hover:text-white text-sm flex items-center">
-                    <i class="fas fa-sync-alt mr-2"></i> Generate more names
-                </button>
             </div>
-            
-            <div class="mt-8 text-center text-white/70 text-sm">
-                <p>Already have an account? <a href="https://www.threads.com/login" class="text-white font-medium hover:underline">Sign in</a></p>
-            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-4 text-center text-sm text-gray-500">
+            <p>© 2023 Email Signup. All rights reserved.</p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Sample name data
-            const firstNames = ["Alex", "Jordan", "Taylor", "Casey", "Riley", "Jamie", "Morgan", "Quinn", "Dakota", "Skyler"];
-            const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson"];
+            // Generate random female name
+            const femaleNames = [
+                "Sophie Wilson", "Emily Johnson", "Olivia Smith", "Ava Brown", "Isabella Taylor",
+                "Mia Anderson", "Charlotte Thomas", "Amelia Jackson", "Harriet White", "Ella Harris",
+                "Grace Martin", "Lily Thompson", "Scarlett Garcia", "Chloe Martinez", "Ruby Robinson",
+                "Evie Clark", "Freya Rodriguez", "Isla Lewis", "Poppy Lee", "Daisy Walker"
+            ];
             
-            // Generate random names
-            function generateRandomNames(count = 6) {
-                const container = document.getElementById('nameSuggestions');
-                container.innerHTML = '';
-                
-                for (let i = 0; i < count; i++) {
-                    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                    const username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${Math.floor(Math.random() * 90) + 10}`;
-                    
-                    const badge = document.createElement('div');
-                    badge.className = 'name-badge bg-white/10 text-white text-sm py-2 px-3 rounded-lg cursor-pointer hover:bg-white/20';
-                    badge.textContent = username;
-                    badge.addEventListener('click', function() {
-                        document.getElementById('username').value = username;
-                    });
-                    
-                    container.appendChild(badge);
-                }
-            }
+            const generateNameBtn = document.getElementById('generateName');
+            const fullnameInput = document.getElementById('fullname');
             
-            // Generate random username
-            document.getElementById('generateUsername').addEventListener('click', function() {
-                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                document.getElementById('username').value = `${firstName.toLowerCase()}${lastName.toLowerCase()}${Math.floor(Math.random() * 90) + 10}`;
+            generateNameBtn.addEventListener('click', function() {
+                const randomName = femaleNames[Math.floor(Math.random() * femaleNames.length)];
+                fullnameInput.value = randomName;
             });
             
             // Toggle password visibility
-            document.getElementById('togglePassword').addEventListener('click', function() {
-                const passwordField = document.getElementById('password');
-                const icon = this.querySelector('i');
-                
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    icon.classList.replace('fa-eye', 'fa-eye-slash');
-                } else {
-                    passwordField.type = 'password';
-                    icon.classList.replace('fa-eye-slash', 'fa-eye');
-                }
-            });
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
             
-            // Generate more names
-            document.getElementById('generateMoreNames').addEventListener('click', generateRandomNames);
+            togglePasswordBtn.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePasswordBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
             
             // Form submission
-            document.getElementById('accountForm').addEventListener('submit', function(e) {
+            const signupForm = document.getElementById('signupForm');
+            
+            signupForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const username = document.getElementById('username').value;
+                
+                // Get form values
+                const fullname = fullnameInput.value;
                 const email = document.getElementById('email').value;
+                const password = passwordInput.value;
                 
-                // In a real app, you would send this data to your server
-                alert(`Account creation request received!\nUsername: ${username}\nEmail: ${email}\n\nRedirecting to login...`);
+                // Simple validation
+                if (!fullname || !email || !password) {
+                    alert('Please fill in all fields');
+                    return;
+                }
                 
-                // Redirect to login page
-                setTimeout(() => {
-                    window.location.href = 'https://www.threads.com/login';
-                }, 2000);
+                // Show loading state
+                const submitBtn = signupForm.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(function() {
+                    // Redirect to Instagram signup
+                    window.location.href = 'https://www.instagram.com/accounts/emailsignup/';
+                }, 1500);
             });
             
-            // Initial name generation
-            generateRandomNames();
+            // Generate a random name on page load
+            generateNameBtn.click();
         });
     </script>
 </body>
