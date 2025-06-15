@@ -1,251 +1,422 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeliastore.id - Daftar Produk</title>
+    <title>Threads Account Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .gradient-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+        .threads-gradient {
+            background: linear-gradient(45deg, #000000, #404040, #808080);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .shake {
+            animation: shake 0.5s;
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 3px solid #f0f0f0;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .product-price {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-bottom: 15px;
-        }
-
-        .product-stock {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #2ecc71;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .product-stock.low {
-            background: #f39c12;
-        }
-
-        .product-stock.out {
-            background: #e74c3c;
-        }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
+        .progress-bar {
+            transition: width 0.3s ease;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🧕 Zeliastore.id</h1>
-            <p>Koleksi Hijab Premium untuk Muslimah Modern</p>
-        </div>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-3">
+                <div class="threads-gradient w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fas fa-thread text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Threads Account Creator</h1>
+            </div>
+            <div class="flex space-x-2">
+                <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium transition">
+                    <i class="fas fa-question-circle mr-1"></i> Help
+                </button>
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium transition">
+                    <i class="fas fa-sign-in-alt mr-1"></i> Login
+                </button>
+            </div>
+        </header>
 
-        <div id="products-container" class="products-grid">
-            <!-- Produk akan ditampilkan di sini -->
-        </div>
+        <!-- Main Content -->
+        <main class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800">Create New Threads Account</h2>
+                <p class="text-gray-600 mt-1">Automatically generate Threads accounts with random details</p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Account Details -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-800 mb-4">Account Settings</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Username Prefix</label>
+                                <div class="flex">
+                                    <input type="text" id="usernamePrefix" class="flex-1 rounded-l-md border-r-0 border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="threads_">
+                                    <span class="inline-flex items-center px-3 rounded-r-md bg-gray-100 text-gray-600 text-sm">_random</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Password Length</label>
+                                <input type="range" id="passwordLength" min="8" max="20" value="12" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>8</span>
+                                    <span id="lengthValue">12</span>
+                                    <span>20</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+                                <select id="accountType" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                    <option value="personal">Personal Account</option>
+                                    <option value="business">Business Account</option>
+                                    <option value="creator">Creator Account</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Number of Accounts</label>
+                                <div class="flex items-center space-x-2">
+                                    <button id="decrement" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-minus text-gray-600"></i>
+                                    </button>
+                                    <input type="number" id="accountCount" min="1" max="100" value="1" class="w-16 text-center border border-gray-300 rounded-md py-1">
+                                    <button id="increment" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-plus text-gray-600"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Options -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-800 mb-4">Advanced Options</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="useProxy" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="useProxy" class="ml-2 block text-sm text-gray-700">Use Proxy Server</label>
+                            </div>
+                            
+                            <div id="proxyDetails" class="hidden space-y-2 pl-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Proxy IP</label>
+                                    <input type="text" id="proxyIP" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Port</label>
+                                    <input type="text" id="proxyPort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="generateBio" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="generateBio" class="ml-2 block text-sm text-gray-700">Generate Random Bio</label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="generateAvatar" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="generateAvatar" class="ml-2 block text-sm text-gray-700">Generate Random Avatar</label>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="saveToFile" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="saveToFile" class="ml-2 block text-sm text-gray-700">Save to CSV File</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Create Button -->
+                <div class="mt-8 flex justify-center">
+                    <button id="createButton" class="threads-gradient hover:opacity-90 text-white font-bold py-3 px-8 rounded-full flex items-center transition">
+                        <i class="fas fa-plus-circle mr-2"></i> Create Accounts
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Progress Section (Hidden by default) -->
+            <div id="progressSection" class="hidden p-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg font-medium text-gray-800">Creating Accounts...</h3>
+                    <span id="progressText" class="text-sm text-gray-600">0/1 accounts created</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progressBar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>Accounts created successfully!</span>
+                </div>
+                <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 text-red-800 rounded-md">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="errorText">Error occurred while creating accounts</span>
+                </div>
+            </div>
+            
+            <!-- Results Section (Hidden by default) -->
+            <div id="resultsSection" class="hidden p-6 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-800">Created Accounts</h3>
+                    <div class="flex space-x-2">
+                        <button id="copyAll" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-copy mr-1"></i> Copy All
+                        </button>
+                        <button id="downloadCSV" class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-1 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-download mr-1"></i> Download CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTable" class="bg-white divide-y divide-gray-200">
+                            <!-- Results will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>This tool is for educational purposes only. Use responsibly.</p>
+            <p class="mt-1">© 2023 Threads Account Creator. Not affiliated with Meta.</p>
+        </footer>
     </div>
 
     <script>
-        // Data produk dummy
-        const products = [
-             {
-                id: 1,
-                name: "PARIS PREMIUM HIJAB",
-                description: "BELI 1 GRATIS 1,Berbahan sutra premium dengan kualitas tinggi, nyaman dipakai untuk aktivitas sehari-hari.",
-                price: "Rp 139.999",
-                image: "https://cdn.orderonline.id/uploads/images_2140121737541534931.gif",
-                stock: 50,
-                category: "Fashion",
-                url: "https://nava.orderonline.id/new-paris-premium-hijab"
-            },
-            {
-                id: 2,
-                name: "HIJAB VOAL PRINTING PREMIUM",
-                description: "BELI 1 GRATIS 1-Hijab dengan desain modern dan fungsional, cocok untuk acara atau bekerja.",
-                price: "Rp 139.999",
-                image: "https://cdn.orderonline.id/uploads/images_7612951738408383220.png",
-                stock: 12,
-                ccategory: "Fashion",
-                url: "https://nava.orderonline.id/hijab-voal-motif-printing"
-            },
-            {
-                id: 3,
-                name: "INSTAN MALAYA PURITY SERIES",
-                description: "BELI 1 GRATIS 1-Hijab dengan desain casual yang trendy, cocok untuk gaya santai maupun formal.",
-                price: "Rp 139.999",
-                image: "https://cdn.orderonline.id/uploads/images_5700871738252145667.png",
-                stock: 8,
-                category: "Fashion",
-                url: "https://nava.orderonline.id/instan-malaya-purity-series"
-            },
-            {
-                id: 4,
-                name: "HIJAB VOAL WATERSPLASH",
-                description: "BELI 1 GRATIS 1-Hijab berkualitas tinggi dengan bahan yang lembut dan anti air.",
-                price: "Rp 139.999",
-                image: "https://cdn.orderonline.id/uploads/images_3869421744859651113.png",
-                stock: 99,
-                category: "Fashion",
-                url: "https://nava.orderonline.id/hijab-voal-watersplash"
-            }
-        ];
-
-        // Fungsi untuk menentukan class stock
-        function getStockClass(stock) {
-            if (stock === 0) return 'out';
-            if (stock < 10) return 'low';
-            return '';
-        }
-
-        // Fungsi untuk menentukan text stock
-        function getStockText(stock) {
-            if (stock === 0) return 'Habis';
-            if (stock < 10) return `Sisa ${stock}`;
-            return `Stok ${stock}`;
-        }
-
-        // Fungsi untuk render produk
-        function renderProducts() {
-            const container = document.getElementById('products-container');
-            
-            const productsHTML = products.map(product => `
-                <div class="product-card" onclick="viewProduct(${product.id})">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${product.price}</div>
-                        <span class="product-stock ${getStockClass(product.stock)}">${getStockText(product.stock)}</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            container.innerHTML = productsHTML;
-        }
-
-        // Fungsi untuk melihat detail produk
-        function viewProduct(productId) {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                // Buka URL produk di tab baru
-                window.open(product.url, '_blank');
-            }
-        }
-
-        // Inisialisasi halaman
         document.addEventListener('DOMContentLoaded', function() {
-            renderProducts();
+            // Update password length display
+            const passwordLength = document.getElementById('passwordLength');
+            const lengthValue = document.getElementById('lengthValue');
+            
+            passwordLength.addEventListener('input', function() {
+                lengthValue.textContent = this.value;
+            });
+            
+            // Increment/decrement account count
+            const increment = document.getElementById('increment');
+            const decrement = document.getElementById('decrement');
+            const accountCount = document.getElementById('accountCount');
+            
+            increment.addEventListener('click', function() {
+                let value = parseInt(accountCount.value);
+                if (value < 100) {
+                    accountCount.value = value + 1;
+                }
+            });
+            
+            decrement.addEventListener('click', function() {
+                let value = parseInt(accountCount.value);
+                if (value > 1) {
+                    accountCount.value = value - 1;
+                }
+            });
+            
+            // Toggle proxy details
+            const useProxy = document.getElementById('useProxy');
+            const proxyDetails = document.getElementById('proxyDetails');
+            
+            useProxy.addEventListener('change', function() {
+                proxyDetails.classList.toggle('hidden', !this.checked);
+            });
+            
+            // Create accounts button
+            const createButton = document.getElementById('createButton');
+            const progressSection = document.getElementById('progressSection');
+            const resultsSection = document.getElementById('resultsSection');
+            const progressText = document.getElementById('progressText');
+            const progressBar = document.getElementById('progressBar');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultsTable = document.getElementById('resultsTable');
+            
+            createButton.addEventListener('click', function() {
+                // Validate inputs
+                const accountCount = parseInt(document.getElementById('accountCount').value);
+                const useProxy = document.getElementById('useProxy').checked;
+                const proxyIP = document.getElementById('proxyIP').value;
+                const proxyPort = document.getElementById('proxyPort').value;
+                
+                if (useProxy && (!proxyIP || !proxyPort)) {
+                    showError("Please enter proxy details");
+                    return;
+                }
+                
+                // Show progress section
+                progressSection.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+                
+                // Simulate account creation
+                let created = 0;
+                const total = accountCount;
+                const interval = setInterval(() => {
+                    created++;
+                    const progress = Math.floor((created / total) * 100);
+                    
+                    progressText.textContent = `${created}/${total} accounts created`;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (created === total) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            successMessage.classList.remove('hidden');
+                            showResults(total);
+                        }, 500);
+                    }
+                }, 500);
+            });
+            
+            function showError(message) {
+                errorMessage.classList.remove('hidden');
+                document.getElementById('errorText').textContent = message;
+                createButton.classList.add('shake');
+                setTimeout(() => {
+                    createButton.classList.remove('shake');
+                }, 500);
+            }
+            
+            function showResults(count) {
+                // Clear previous results
+                resultsTable.innerHTML = '';
+                
+                // Generate random accounts
+                const usernamePrefix = document.getElementById('usernamePrefix').value || 'threads_';
+                const passwordLength = parseInt(document.getElementById('passwordLength').value);
+                const accountType = document.getElementById('accountType').value;
+                
+                for (let i = 1; i <= count; i++) {
+                    const username = usernamePrefix + Math.random().toString(36).substring(2, 8);
+                    const password = generatePassword(passwordLength);
+                    const email = `threads_${Math.random().toString(36).substring(2, 10)}@example.com`;
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${i}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${username}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${password}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <button class="text-blue-600 hover:text-blue-900 mr-3 copy-btn" data-username="${username}" data-password="${password}" data-email="${email}">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-900 delete-btn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    
+                    resultsTable.appendChild(row);
+                }
+                
+                // Add event listeners to copy buttons
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const username = this.getAttribute('data-username');
+                        const password = this.getAttribute('data-password');
+                        const email = this.getAttribute('data-email');
+                        
+                        const text = `Username: ${username}\nPassword: ${password}\nEmail: ${email}`;
+                        navigator.clipboard.writeText(text).then(() => {
+                            const originalHTML = btn.innerHTML;
+                            btn.innerHTML = '<i class="fas fa-check"></i>';
+                            setTimeout(() => {
+                                btn.innerHTML = originalHTML;
+                            }, 1000);
+                        });
+                    });
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        this.closest('tr').remove();
+                    });
+                });
+                
+                // Show results section
+                resultsSection.classList.remove('hidden');
+            }
+            
+            function generatePassword(length) {
+                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+                let password = "";
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * charset.length);
+                    password += charset[randomIndex];
+                }
+                return password;
+            }
+            
+            // Copy all accounts
+            document.getElementById('copyAll').addEventListener('click', function() {
+                const rows = document.querySelectorAll('#resultsTable tr');
+                let text = '';
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    text += `Username: ${cells[1].textContent}\n`;
+                    text += `Password: ${cells[2].textContent}\n`;
+                    text += `Email: ${cells[3].textContent}\n\n`;
+                });
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                    }, 2000);
+                });
+            });
+            
+            // Download CSV
+            document.getElementById('downloadCSV').addEventListener('click', function() {
+                const rows = document.querySelectorAll('#resultsTable tr');
+                let csv = 'Username,Password,Email\n';
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    csv += `"${cells[1].textContent}","${cells[2].textContent}","${cells[3].textContent}"\n`;
+                });
+                
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('hidden', '');
+                a.setAttribute('href', url);
+                a.setAttribute('download', 'threads_accounts.csv');
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
         });
-
-        // Fungsi tambahan untuk filter produk (opsional)
-        function filterProducts(category) {
-            const filteredProducts = category === 'all' ? products : products.filter(p => p.category.toLowerCase() === category.toLowerCase());
-            
-            const container = document.getElementById('products-container');
-            const productsHTML = filteredProducts.map(product => `
-                <div class="product-card" onclick="viewProduct(${product.id})">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${product.price}</div>
-                        <span class="product-stock ${getStockClass(product.stock)}">${getStockText(product.stock)}</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            container.innerHTML = productsHTML;
-        }
     </script>
 </body>
 </html>
