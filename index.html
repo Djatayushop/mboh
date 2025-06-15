@@ -3,419 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Threads Account Creator</title>
+    <title>Create Threads Account</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
         }
-        .threads-gradient {
-            background: linear-gradient(45deg, #000000, #404040, #808080);
+        .account-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .shake {
-            animation: shake 0.5s;
+        .input-field {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
         }
-        .progress-bar {
-            transition: width 0.3s ease;
+        .name-badge {
+            transition: all 0.3s ease;
+        }
+        .name-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header -->
-        <header class="flex items-center justify-between mb-8">
-            <div class="flex items-center space-x-3">
-                <div class="threads-gradient w-10 h-10 rounded-full flex items-center justify-center">
-                    <i class="fas fa-thread text-white text-xl"></i>
-                </div>
-                <h1 class="text-2xl font-bold text-gray-800">Threads Account Creator</h1>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="account-card rounded-2xl shadow-2xl overflow-hidden w-full max-w-md">
+        <div class="p-8">
+            <div class="flex justify-center mb-6">
+                <i class="fas fa-thread text-white text-5xl"></i>
             </div>
-            <div class="flex space-x-2">
-                <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full text-sm font-medium transition">
-                    <i class="fas fa-question-circle mr-1"></i> Help
-                </button>
-                <button class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full text-sm font-medium transition">
-                    <i class="fas fa-sign-in-alt mr-1"></i> Login
-                </button>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
-                <h2 class="text-xl font-semibold text-gray-800">Create New Threads Account</h2>
-                <p class="text-gray-600 mt-1">Automatically generate Threads accounts with random details</p>
-            </div>
-
-            <!-- Form Section -->
-            <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Account Details -->
-                    <div>
-                        <h3 class="text-lg font-medium text-gray-800 mb-4">Account Settings</h3>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Username Prefix</label>
-                                <div class="flex">
-                                    <input type="text" id="usernamePrefix" class="flex-1 rounded-l-md border-r-0 border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="threads_">
-                                    <span class="inline-flex items-center px-3 rounded-r-md bg-gray-100 text-gray-600 text-sm">_random</span>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Password Length</label>
-                                <input type="range" id="passwordLength" min="8" max="20" value="12" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                    <span>8</span>
-                                    <span id="lengthValue">12</span>
-                                    <span>20</span>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
-                                <select id="accountType" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                    <option value="personal">Personal Account</option>
-                                    <option value="business">Business Account</option>
-                                    <option value="creator">Creator Account</option>
-                                </select>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Number of Accounts</label>
-                                <div class="flex items-center space-x-2">
-                                    <button id="decrement" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-minus text-gray-600"></i>
-                                    </button>
-                                    <input type="number" id="accountCount" min="1" max="100" value="1" class="w-16 text-center border border-gray-300 rounded-md py-1">
-                                    <button id="increment" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-plus text-gray-600"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Advanced Options -->
-                    <div>
-                        <h3 class="text-lg font-medium text-gray-800 mb-4">Advanced Options</h3>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="useProxy" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="useProxy" class="ml-2 block text-sm text-gray-700">Use Proxy Server</label>
-                            </div>
-                            
-                            <div id="proxyDetails" class="hidden space-y-2 pl-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Proxy IP</label>
-                                    <input type="text" id="proxyIP" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Port</label>
-                                    <input type="text" id="proxyPort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <input type="checkbox" id="generateBio" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="generateBio" class="ml-2 block text-sm text-gray-700">Generate Random Bio</label>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <input type="checkbox" id="generateAvatar" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="generateAvatar" class="ml-2 block text-sm text-gray-700">Generate Random Avatar</label>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <input type="checkbox" id="saveToFile" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="saveToFile" class="ml-2 block text-sm text-gray-700">Save to CSV File</label>
-                            </div>
-                        </div>
+            <h1 class="text-2xl font-bold text-white text-center mb-2">Create Threads Account</h1>
+            <p class="text-white/80 text-center mb-6">Join the conversation with your new account</p>
+            
+            <form id="accountForm" class="space-y-4">
+                <div>
+                    <label class="block text-white/80 text-sm mb-2" for="username">Username</label>
+                    <div class="relative">
+                        <input type="text" id="username" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" placeholder="Choose a username" required>
+                        <button type="button" id="generateUsername" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white">
+                            <i class="fas fa-random"></i>
+                        </button>
                     </div>
                 </div>
                 
-                <!-- Create Button -->
-                <div class="mt-8 flex justify-center">
-                    <button id="createButton" class="threads-gradient hover:opacity-90 text-white font-bold py-3 px-8 rounded-full flex items-center transition">
-                        <i class="fas fa-plus-circle mr-2"></i> Create Accounts
+                <div>
+                    <label class="block text-white/80 text-sm mb-2" for="email">Email</label>
+                    <input type="email" id="email" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" placeholder="your@email.com" required>
+                </div>
+                
+                <div>
+                    <label class="block text-white/80 text-sm mb-2" for="password">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password" class="input-field w-full px-4 py-3 rounded-lg text-white placeholder-white/50" value="BISMILLAH1234" readonly>
+                        <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-white text-black font-semibold py-3 rounded-lg hover:bg-opacity-90 transition duration-300 flex items-center justify-center">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
+            </form>
+            
+            <div class="mt-6">
+                <h3 class="text-white text-sm font-semibold mb-3">Quick Name Suggestions</h3>
+                <div id="nameSuggestions" class="grid grid-cols-2 gap-2">
+                    <!-- Names will be generated here -->
+                </div>
+                <button id="generateMoreNames" class="mt-3 text-white/70 hover:text-white text-sm flex items-center">
+                    <i class="fas fa-sync-alt mr-2"></i> Generate more names
+                </button>
             </div>
             
-            <!-- Progress Section (Hidden by default) -->
-            <div id="progressSection" class="hidden p-6 border-t border-gray-200">
-                <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-lg font-medium text-gray-800">Creating Accounts...</h3>
-                    <span id="progressText" class="text-sm text-gray-600">0/1 accounts created</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                    <div id="progressBar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-                </div>
-                <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-md">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    <span>Accounts created successfully!</span>
-                </div>
-                <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 text-red-800 rounded-md">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span id="errorText">Error occurred while creating accounts</span>
-                </div>
+            <div class="mt-8 text-center text-white/70 text-sm">
+                <p>Already have an account? <a href="https://akunlama.com/" class="text-white font-medium hover:underline">Sign in</a></p>
             </div>
-            
-            <!-- Results Section (Hidden by default) -->
-            <div id="resultsSection" class="hidden p-6 border-t border-gray-200">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-medium text-gray-800">Created Accounts</h3>
-                    <div class="flex space-x-2">
-                        <button id="copyAll" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm font-medium transition">
-                            <i class="fas fa-copy mr-1"></i> Copy All
-                        </button>
-                        <button id="downloadCSV" class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-1 rounded-md text-sm font-medium transition">
-                            <i class="fas fa-download mr-1"></i> Download CSV
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="resultsTable" class="bg-white divide-y divide-gray-200">
-                            <!-- Results will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-        
-        <!-- Footer -->
-        <footer class="mt-8 text-center text-gray-500 text-sm">
-            <p>This tool is for educational purposes only. Use responsibly.</p>
-            <p class="mt-1">© 2023 Threads Account Creator. Not affiliated with Meta.</p>
-        </footer>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Update password length display
-            const passwordLength = document.getElementById('passwordLength');
-            const lengthValue = document.getElementById('lengthValue');
+            // Sample name data
+            const firstNames = ["Alex", "Jordan", "Taylor", "Casey", "Riley", "Jamie", "Morgan", "Quinn", "Dakota", "Skyler"];
+            const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson"];
             
-            passwordLength.addEventListener('input', function() {
-                lengthValue.textContent = this.value;
-            });
-            
-            // Increment/decrement account count
-            const increment = document.getElementById('increment');
-            const decrement = document.getElementById('decrement');
-            const accountCount = document.getElementById('accountCount');
-            
-            increment.addEventListener('click', function() {
-                let value = parseInt(accountCount.value);
-                if (value < 100) {
-                    accountCount.value = value + 1;
-                }
-            });
-            
-            decrement.addEventListener('click', function() {
-                let value = parseInt(accountCount.value);
-                if (value > 1) {
-                    accountCount.value = value - 1;
-                }
-            });
-            
-            // Toggle proxy details
-            const useProxy = document.getElementById('useProxy');
-            const proxyDetails = document.getElementById('proxyDetails');
-            
-            useProxy.addEventListener('change', function() {
-                proxyDetails.classList.toggle('hidden', !this.checked);
-            });
-            
-            // Create accounts button
-            const createButton = document.getElementById('createButton');
-            const progressSection = document.getElementById('progressSection');
-            const resultsSection = document.getElementById('resultsSection');
-            const progressText = document.getElementById('progressText');
-            const progressBar = document.getElementById('progressBar');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const resultsTable = document.getElementById('resultsTable');
-            
-            createButton.addEventListener('click', function() {
-                // Validate inputs
-                const accountCount = parseInt(document.getElementById('accountCount').value);
-                const useProxy = document.getElementById('useProxy').checked;
-                const proxyIP = document.getElementById('proxyIP').value;
-                const proxyPort = document.getElementById('proxyPort').value;
+            // Generate random names
+            function generateRandomNames(count = 6) {
+                const container = document.getElementById('nameSuggestions');
+                container.innerHTML = '';
                 
-                if (useProxy && (!proxyIP || !proxyPort)) {
-                    showError("Please enter proxy details");
-                    return;
-                }
-                
-                // Show progress section
-                progressSection.classList.remove('hidden');
-                resultsSection.classList.add('hidden');
-                successMessage.classList.add('hidden');
-                errorMessage.classList.add('hidden');
-                
-                // Simulate account creation
-                let created = 0;
-                const total = accountCount;
-                const interval = setInterval(() => {
-                    created++;
-                    const progress = Math.floor((created / total) * 100);
+                for (let i = 0; i < count; i++) {
+                    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                    const username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${Math.floor(Math.random() * 90) + 10}`;
                     
-                    progressText.textContent = `${created}/${total} accounts created`;
-                    progressBar.style.width = `${progress}%`;
+                    const badge = document.createElement('div');
+                    badge.className = 'name-badge bg-white/10 text-white text-sm py-2 px-3 rounded-lg cursor-pointer hover:bg-white/20';
+                    badge.textContent = username;
+                    badge.addEventListener('click', function() {
+                        document.getElementById('username').value = username;
+                    });
                     
-                    if (created === total) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            successMessage.classList.remove('hidden');
-                            showResults(total);
-                        }, 500);
-                    }
-                }, 500);
+                    container.appendChild(badge);
+                }
+            }
+            
+            // Generate random username
+            document.getElementById('generateUsername').addEventListener('click', function() {
+                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                document.getElementById('username').value = `${firstName.toLowerCase()}${lastName.toLowerCase()}${Math.floor(Math.random() * 90) + 10}`;
             });
             
-            function showError(message) {
-                errorMessage.classList.remove('hidden');
-                document.getElementById('errorText').textContent = message;
-                createButton.classList.add('shake');
+            // Toggle password visibility
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const passwordField = document.getElementById('password');
+                const icon = this.querySelector('i');
+                
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    icon.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+            
+            // Generate more names
+            document.getElementById('generateMoreNames').addEventListener('click', generateRandomNames);
+            
+            // Form submission
+            document.getElementById('accountForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                
+                // In a real app, you would send this data to your server
+                alert(`Account creation request received!\nUsername: ${username}\nEmail: ${email}\n\nRedirecting to login...`);
+                
+                // Redirect to login page
                 setTimeout(() => {
-                    createButton.classList.remove('shake');
-                }, 500);
-            }
-            
-            function showResults(count) {
-                // Clear previous results
-                resultsTable.innerHTML = '';
-                
-                // Generate random accounts
-                const usernamePrefix = document.getElementById('usernamePrefix').value || 'threads_';
-                const passwordLength = parseInt(document.getElementById('passwordLength').value);
-                const accountType = document.getElementById('accountType').value;
-                
-                for (let i = 1; i <= count; i++) {
-                    const username = usernamePrefix + Math.random().toString(36).substring(2, 8);
-                    const password = generatePassword(passwordLength);
-                    const email = `threads_${Math.random().toString(36).substring(2, 10)}@example.com`;
-                    
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${i}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${username}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${password}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${email}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <button class="text-blue-600 hover:text-blue-900 mr-3 copy-btn" data-username="${username}" data-password="${password}" data-email="${email}">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="text-red-600 hover:text-red-900 delete-btn">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    `;
-                    
-                    resultsTable.appendChild(row);
-                }
-                
-                // Add event listeners to copy buttons
-                document.querySelectorAll('.copy-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const username = this.getAttribute('data-username');
-                        const password = this.getAttribute('data-password');
-                        const email = this.getAttribute('data-email');
-                        
-                        const text = `Username: ${username}\nPassword: ${password}\nEmail: ${email}`;
-                        navigator.clipboard.writeText(text).then(() => {
-                            const originalHTML = btn.innerHTML;
-                            btn.innerHTML = '<i class="fas fa-check"></i>';
-                            setTimeout(() => {
-                                btn.innerHTML = originalHTML;
-                            }, 1000);
-                        });
-                    });
-                });
-                
-                // Add event listeners to delete buttons
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        this.closest('tr').remove();
-                    });
-                });
-                
-                // Show results section
-                resultsSection.classList.remove('hidden');
-            }
-            
-            function generatePassword(length) {
-                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-                let password = "";
-                for (let i = 0; i < length; i++) {
-                    const randomIndex = Math.floor(Math.random() * charset.length);
-                    password += charset[randomIndex];
-                }
-                return password;
-            }
-            
-            // Copy all accounts
-            document.getElementById('copyAll').addEventListener('click', function() {
-                const rows = document.querySelectorAll('#resultsTable tr');
-                let text = '';
-                
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll('td');
-                    text += `Username: ${cells[1].textContent}\n`;
-                    text += `Password: ${cells[2].textContent}\n`;
-                    text += `Email: ${cells[3].textContent}\n\n`;
-                });
-                
-                navigator.clipboard.writeText(text).then(() => {
-                    const originalHTML = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
-                    setTimeout(() => {
-                        this.innerHTML = originalHTML;
-                    }, 2000);
-                });
+                    window.location.href = 'https://akunlama.com/';
+                }, 2000);
             });
             
-            // Download CSV
-            document.getElementById('downloadCSV').addEventListener('click', function() {
-                const rows = document.querySelectorAll('#resultsTable tr');
-                let csv = 'Username,Password,Email\n';
-                
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll('td');
-                    csv += `"${cells[1].textContent}","${cells[2].textContent}","${cells[3].textContent}"\n`;
-                });
-                
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.setAttribute('hidden', '');
-                a.setAttribute('href', url);
-                a.setAttribute('download', 'threads_accounts.csv');
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
+            // Initial name generation
+            generateRandomNames();
         });
     </script>
 </body>
